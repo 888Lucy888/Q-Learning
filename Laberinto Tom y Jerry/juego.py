@@ -39,7 +39,7 @@ def pausa():
       for evento in pygame.event.get():
           if evento.type == KEYDOWN:
               esperar = False
-  
+
 
 def mostrarIntro():
    # Muestra la pantalla de inicio y espera
