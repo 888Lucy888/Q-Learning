@@ -2,7 +2,10 @@
 import pygame, sys
 from pygame.locals import *
 from game import mapa
+from game.environment import MazeEnvironment
+from game.qlearning_agent import QLearningAgent
 import time
+import json
 
 pygame.mixer.pre_init(44100,16,2,1024)
 pygame.init()
@@ -39,8 +42,15 @@ def mostrarIntro():
    pygame.display.update()
    pausa()
 
+# Load configuration
+with open('config/jerryconfig.json', 'r') as f:
+    config = json.load(f)
+
 pygame.mouse.set_visible(False)
-mostrarIntro()
+
+if config['enable_render']:
+    mostrarIntro()
+
 time.sleep(0.75)
 
 class imagenRatonContento( pygame.sprite.Sprite ):
@@ -90,8 +100,28 @@ nivel = mapa.Mapa('game/mapa.txt')
 
 reloj = pygame.time.Clock()
 
+# Q-Learning setup
+env = MazeEnvironment('game/mapa.txt')
+state_dim = env.size  # Use the size of the environment
+agent = QLearningAgent(state_dim=state_dim, num_actions=4, config_file='config/qlearning.json', jerryconfig_file='config/jerryconfig.json')
+
+max_episodes = config['max_episodes']
+
+for episode in range(max_episodes):
+    state = env.reset()
+    done = False
+    while not done:
+        state_index = env.get_state_index(state)
+        action = agent.choose_action(state_index)
+        next_state, reward, done = env.step(action)
+        next_state_index = env.get_state_index(next_state)
+        agent.update_q_value(state_index, action, reward, next_state_index)
+        state = next_state
+    agent.decay_epsilon()
+    agent.save_q_table()
+
 while True:
-    reloj.tick(60)
+    reloj.tick(config['fps'])
     
     for evento in pygame.event.get():
         if evento.type == QUIT or (evento.type == KEYDOWN and evento.key == K_ESCAPE):
