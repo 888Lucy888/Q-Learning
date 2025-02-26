@@ -65,13 +65,13 @@ class Mapa:
       
         # Cargamos las diferentes imágenes de las piezas de las paredes        
         
-        self.h=pygame.image.load('h.png').convert_alpha()
-        self.v=pygame.image.load('v.png').convert_alpha()
-        self.sd=pygame.image.load('sd.png').convert_alpha()
-        self.id=pygame.image.load('id.png').convert_alpha()
-        self.ii=pygame.image.load('ii.png').convert_alpha()
-        self.si=pygame.image.load('si.png').convert_alpha()
-        self.q=pygame.image.load('q.png').convert_alpha() 
+        self.h = pygame.image.load('images/h.png').convert_alpha()
+        self.v = pygame.image.load('images/v.png').convert_alpha()
+        self.sd = pygame.image.load('images/sd.png').convert_alpha()
+        self.id = pygame.image.load('images/id.png').convert_alpha()
+        self.ii = pygame.image.load('images/ii.png').convert_alpha()
+        self.si = pygame.image.load('images/si.png').convert_alpha()
+        self.q = pygame.image.load('images/q.png').convert_alpha()
         
         # En la variable textoMapa se almacenan las líneas del archivo que
         # continene el mapa.
@@ -124,7 +124,7 @@ class Mapa:
     
     
     def actualizar(self, visor):
-        visor.fill((255,255,255))
+        visor.fill((255, 192, 203))
         self.grupo.update()
         self.grupo.draw(visor)
         self.quesos.update()
@@ -145,7 +145,7 @@ class Mapa:
     
     def aCuadricula(self, x, y):
         return (y/40, x/40)
-        
+
 
 
 
