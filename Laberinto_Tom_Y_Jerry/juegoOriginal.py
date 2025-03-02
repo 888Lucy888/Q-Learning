@@ -4,11 +4,11 @@ from pygame.locals import *
 from game import mapa
 import time
 
-pygame.mixer.pre_init(44100,16,2,1024)
+pygame.mixer.pre_init(44100, 16, 2, 1024)
 pygame.init()
 
-BLANCO = (255,255,255)
-AMARILLO = (255,255,0)
+BLANCO = (255, 255, 255)
+AMARILLO = (255, 255, 0)
 
 tipoLetra = pygame.font.Font('Grandezza.ttf', 30)
 tipoLetra2 = pygame.font.Font('Grandezza.ttf', 35)
@@ -21,33 +21,33 @@ imagenQueso = 'images/q.png'
 visor = pygame.display.set_mode((800, 600))
 
 def pausa():
-   # Esta función hace que se espera hasta que se pulse una tecla
-   esperar = True
-   while esperar:
-      for evento in pygame.event.get():
-          if evento.type == KEYDOWN:
-              esperar = False
+    # This function waits until a key is pressed
+    esperar = True
+    while esperar:
+        for evento in pygame.event.get():
+            if evento.type == KEYDOWN:
+                esperar = False
 
 def mostrarIntro():
-   # Muestra la pantalla de inicio y espera
-   fondo = pygame.image.load(imagenDeFondo).convert()
-   visor.blit(fondo, (0,0))
-   mensaje = 'Pulsa una tecla para comenzar'
-   texto = tipoLetra.render(mensaje, True, AMARILLO)
+    # Show the intro screen and wait
+    fondo = pygame.image.load(imagenDeFondo).convert()
+    visor.blit(fondo, (0, 0))
+    mensaje = 'Pulsa una tecla para comenzar'
+    texto = tipoLetra.render(mensaje, True, AMARILLO)
   
-   visor.blit(texto, (60,550,350,30))
-   pygame.display.update()
-   pausa()
+    visor.blit(texto, (60, 550, 350, 30))
+    pygame.display.update()
+    pausa()
 
 pygame.mouse.set_visible(False)
 mostrarIntro()
 time.sleep(0.75)
 
-class imagenRatonContento( pygame.sprite.Sprite ):
-    def __init__( self, posX, posY ):
-        pygame.sprite.Sprite.__init__( self )
+class imagenRatonContento(pygame.sprite.Sprite):
+    def __init__(self, posX, posY):
+        pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('images/raton1.png').convert()
-        self.image.set_colorkey((255,255,255))
+        self.image.set_colorkey((255, 255, 255))
         self.rect = self.image.get_rect()
         self.rect.topleft = (posX, posY)
         self.dy = 0
@@ -55,16 +55,16 @@ class imagenRatonContento( pygame.sprite.Sprite ):
                 
     def update(self):
         self.pos = self.rect.topleft
-        self.rect.move_ip(self.dx,self.dy)
+        self.rect.move_ip(self.dx, self.dy)
         
     def deshacer(self):
         self.rect.topleft = self.pos
 
-class imagenGatoContento( pygame.sprite.Sprite ):
-    def __init__( self, posX, posY ):
-        pygame.sprite.Sprite.__init__( self )
+class imagenGatoContento(pygame.sprite.Sprite):
+    def __init__(self, posX, posY):
+        pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('images/gato.png').convert()
-        self.image.set_colorkey((255,255,255))
+        self.image.set_colorkey((255, 255, 255))
         self.rect = self.image.get_rect()
         self.rect.topleft = (posX, posY)
         self.dy = 0
@@ -72,7 +72,7 @@ class imagenGatoContento( pygame.sprite.Sprite ):
                 
     def update(self):
         self.pos = self.rect.topleft
-        self.rect.move_ip(self.dx,self.dy)
+        self.rect.move_ip(self.dx, self.dy)
         
     def deshacer(self):
         self.rect.topleft = self.pos
@@ -80,11 +80,11 @@ class imagenGatoContento( pygame.sprite.Sprite ):
 visor = pygame.display.set_mode((800, 600), 0, 32)
 pygame.display.set_caption('Ejemplo de Mapa')
 
-imagenRatonContento = imagenRatonContento(50,200)
-imagenGatoContento = imagenGatoContento(50,500)
+imagenRatonContento = imagenRatonContento(50, 200)
+imagenGatoContento = imagenGatoContento(50, 500)
 
-grupoimagenRatonContento = pygame.sprite.RenderUpdates( imagenRatonContento )
-grupoimagenGatoContento = pygame.sprite.RenderUpdates( imagenGatoContento )
+grupoimagenRatonContento = pygame.sprite.RenderUpdates(imagenRatonContento)
+grupoimagenGatoContento = pygame.sprite.RenderUpdates(imagenGatoContento)
 
 nivel = mapa.Mapa('game/mapa.txt')
 

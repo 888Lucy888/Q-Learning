@@ -1,1 +1,122 @@
-# Q-Learning
+# Laberinto Tom y Jerry
+
+## Team
+
+- Constanza Corvera
+- Pablo Tazaki
+- Miguel Vizcaíno
+- Lucia Castañeda
+
+## Overview
+
+"Laberinto Tom y Jerry" is a reinforcement learning project where two agents, Tom and Jerry, navigate a maze. Jerry's goal is to collect all the cheeses in the maze, while Tom's goal is to catch Jerry. The agents are trained using Q-learning, a model-free reinforcement learning algorithm.
+
+## Tools and Libraries Used
+
+- **Python**: The programming language used for the project.
+- **Pygame**: A library used for creating the game environment and rendering the graphics.
+- **NumPy**: A library used for numerical computations and handling the Q-tables.
+- **JSON**: Used for configuration files to store parameters for the Q-learning agents.
+
+## Game Description
+
+The game consists of a maze where:
+
+- **Jerry** starts at a predefined position and aims to collect all the cheeses scattered throughout the maze.
+- **Tom** starts at a different predefined position and aims to catch Jerry.
+
+The maze is represented as a grid, and both agents can move up, down, left, or right. The game ends when Jerry collects all the cheeses or when Tom catches Jerry.
+
+## Q-learning Agents
+
+### Jerry's Q-learning Agent
+
+Jerry's agent is trained to navigate the maze and collect all the cheeses while avoiding Tom. The Q-learning algorithm is used to update the Q-table based on the rewards received from the environment.
+
+#### Parameters
+
+- **Alpha (α)**: Learning rate, which determines how much new information overrides the old information.
+- **Gamma (γ)**: Discount factor, which determines the importance of future rewards.
+- **Epsilon (ε)**: Exploration rate, which determines the probability of choosing a random action over the best-known action.
+
+#### Rewards
+
+- **+100**: For collecting a cheese.
+- **-50**: For hitting a wall.
+- **-1000**: For getting caught by Tom.
+- **-50**: For each step taken without collecting a cheese.
+
+#### Actions
+
+- **Up**: Move up in the grid.
+- **Down**: Move down in the grid.
+- **Left**: Move left in the grid.
+- **Right**: Move right in the grid.
+
+### Tom's Q-learning Agent
+
+Tom's agent is trained to navigate the maze and catch Jerry. The Q-learning algorithm is used to update the Q-table based on the rewards received from the environment.
+
+#### Parameters
+
+- **Alpha (α)**: Learning rate, which determines how much new information overrides the old information.
+- **Gamma (γ)**: Discount factor, which determines the importance of future rewards.
+- **Epsilon (ε)**: Exploration rate, which determines the probability of choosing a random action over the best-known action.
+
+#### Rewards
+
+- **+1000**: For catching Jerry.
+- **-50**: For hitting a wall.
+- **+50**: For getting closer to Jerry.
+
+#### Actions
+
+- **0**: Move left in the grid.
+- **1**: Move right in the grid.
+- **2**: Move up in the grid.
+- **3**: Move down in the grid.
+
+## Training Process
+
+The training process involves running multiple episodes where the agents interact with the environment and update their Q-tables based on the rewards received.
+
+### Jerry's Training
+
+1. **Initialization**: Jerry starts at a predefined position, and the Q-table is initialized with zeros.
+2. **Action Selection**: Jerry selects an action based on the epsilon-greedy policy.
+3. **State Transition**: Jerry moves to the new state based on the selected action.
+4. **Reward Calculation**: Jerry receives a reward based on the new state.
+5. **Q-table Update**: The Q-table is updated using the Bellman equation.
+6. **Epsilon Decay**: The exploration rate is decayed over episodes to reduce exploration over time.
+
+### Tom's Training
+
+1. **Initialization**: Tom starts at a predefined position, and the Q-table is initialized with zeros.
+2. **Action Selection**: Tom selects an action based on the epsilon-greedy policy.
+3. **State Transition**: Tom moves to the new state based on the selected action.
+4. **Reward Calculation**: Tom receives a reward based on the new state.
+5. **Q-table Update**: The Q-table is updated using the Bellman equation.
+6. **Epsilon Decay**: The exploration rate is decayed over episodes to reduce exploration over time.
+
+## How to Run the Game
+
+1. **Install Dependencies**: Ensure you have Python, Pygame, and NumPy installed.
+2. **Run the Game**: Execute the `juegoJerryRun.py` script to start the game and observe the agents' behavior.
+
+```bash
+python juegoJerryRun.py
+
+```
+
+## Configuration Files
+
+The configuration files for the Q-learning agents are stored in the `config` directory. These files contain the parameters for the Q-learning algorithm and can be modified to change the behavior of the agents.
+
+- **jerryqlearning.json**: Configuration file for Jerry's Q-learning agent.
+- **tomqlearning.json**: Configuration file for Tom's Q-learning agent.
+
+## Conclusion
+
+This project demonstrates the application of Q-learning in a game environment where two agents, Tom and Jerry, interact with each other. The agents learn to navigate the maze and achieve their respective goals through reinforcement learning.
+
+Feel free to explore the code, modify the parameters, and experiment with different configurations to see how the agents' behavior changes.
