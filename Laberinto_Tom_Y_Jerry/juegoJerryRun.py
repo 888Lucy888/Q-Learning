@@ -3,6 +3,7 @@ import sys
 import numpy as np
 import time
 import json
+import matplotlib.pyplot as plt
 from pygame.locals import *
 from game import mapaJerry
 from learning.QlearningJerry import QlearningJerry
@@ -65,6 +66,11 @@ def calculate_distance(pos1, pos2):
     """Calculate the Manhattan distance between two positions"""
     return abs(pos1[0] - pos2[0]) + abs(pos1[1] - pos2[1])
 
+# Initialize win counters
+jerry_wins = 0
+tom_wins = 0
+action_limit_reached = 0
+
 # Training loop
 for episode in range(max_episodes):
     # Reload the map for the next episode
@@ -125,6 +131,7 @@ for episode in range(max_episodes):
             
             if len(nivel.quesos) == 0:
                 run = False
+                jerry_wins += 1
                 print(f"Episodio {episode+1}: ¡Jerry encontró los {total_quesos} quesos en {steps} pasos!, Epsilon = {epsilon_jerry}")
         else:
             reward_jerry -= 50
@@ -134,6 +141,7 @@ for episode in range(max_episodes):
             reward_jerry -= 1000  # Worst punishment for Jerry
             reward_tom += 1000  # Reward for Tom
             run = False
+            tom_wins += 1
             print(f"Episodio {episode+1}: ¡Tom atrapó a Jerry en {steps} pasos!, Epsilon = {epsilon_jerry}")
 
         qlearning_jerry.update_q_table(jerry.state, action_jerry, reward_jerry, next_state_jerry, queso_actual)
@@ -145,9 +153,20 @@ for episode in range(max_episodes):
     # Penalty if Jerry doesn't collect all cheeses or Tom doesn't catch Jerry
     if steps >= max_steps and len(nivel.quesos) > 0:
         reward_jerry -= 1000  # Worst punishment for Jerry
+        action_limit_reached += 1
         print(f"Episodio {episode+1}: ¡Jerry no recogió todos los quesos en {steps} pasos!, Epsilon = {epsilon_jerry}")
 
 # Save the trained Q-table
 np.save('Checkpoint/Q_table_jerry_Run.npy', qlearning_jerry.q_table)
 np.save('Checkpoint/Q_table_tom_Run.npy', qlearning_tom.q_table)
 pygame.quit()
+
+# Plot the results
+labels = ['Jerry Wins', 'Tom Wins', 'Action Limit Reached']
+counts = [jerry_wins, tom_wins, action_limit_reached]
+
+plt.bar(labels, counts, color=['#add8e6', '#ffcccb', '#d3d3d3'])
+plt.xlabel('Outcome')
+plt.ylabel('Number of Episodes')
+plt.title('Results of Q-learning Training')
+plt.show()

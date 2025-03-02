@@ -1,4 +1,4 @@
-# Laberinto Tom y Jerry
+# Tom & Jerry Labyrinth
 
 ## Team
 
@@ -17,6 +17,7 @@
 - **Pygame**: A library used for creating the game environment and rendering the graphics.
 - **NumPy**: A library used for numerical computations and handling the Q-tables.
 - **JSON**: Used for configuration files to store parameters for the Q-learning agents.
+- **Matplotlib**: A library used for plotting the results of the Q-learning training.
 
 ## Game Description
 
@@ -100,13 +101,16 @@ The training process involves running multiple episodes where the agents interac
 
 ## How to Run the Game
 
-1. **Install Dependencies**: Ensure you have Python, Pygame, and NumPy installed.
-2. **Run the Game**: Execute the `juegoJerryRun.py` script to start the game and observe the agents' behavior.
+1. **Install Dependencies**: Ensure you have Python, Pygame, NumPy, and Matplotlib installed. You can install the required libraries using the following commands:
 
-```bash
-python juegoJerryRun.py
+   ```bash
+   pip install pygame numpy matplotlib
+   ```
 
-```
+2. **Run the Game**: Execute the [juegoJerryRun.py](http://_vscodecontentref_/2) script to start the game and observe the agents' behavior.
+   ```bash
+   python juegoJerryRun.py
+   ```
 
 ## Configuration Files
 
@@ -118,5 +122,7 @@ The configuration files for the Q-learning agents are stored in the `config` dir
 ## Conclusion
 
 This project demonstrates the application of Q-learning in a game environment where two agents, Tom and Jerry, interact with each other. The agents learn to navigate the maze and achieve their respective goals through reinforcement learning.
+
+At the end of the training, a bar graph is displayed showing the number of wins for Jerry, the number of wins for Tom, and the number of episodes where the action limit was reached without a winner. This helps visualize the performance of the agents over the training episodes.
 
 Feel free to explore the code, modify the parameters, and experiment with different configurations to see how the agents' behavior changes.

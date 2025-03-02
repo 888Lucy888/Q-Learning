@@ -35,7 +35,6 @@ nivel = mapaJerry.Mapa('game/mapaJerry.txt', enable_render)
 # Se guarda la cantidad de quesos existentes en total_quesos para obtener el número de quesos comido
 total_quesos = len(nivel.quesos)
 
-
 # Posiciones iniciales
 JERRY_START = (1, 6)
 
@@ -48,7 +47,6 @@ jerry = JerryClass(JERRY_START, BLOCK_SIZE, width, enable_render)
 # Si `load_weights=True`, cargar la tabla Q preentrenada
 if load_weights:
     qlearning.q_table = np.load('Checkpoint/Q_table_jerry.npy')
-    
 
 # Grupo de sprites
 grupo_jerry = pygame.sprite.RenderUpdates(jerry)
@@ -70,6 +68,7 @@ for episode in range(max_episodes):
 
     jerry.rect.topleft = (JERRY_START[0] * BLOCK_SIZE, JERRY_START[1] * BLOCK_SIZE)
     steps = 0
+    steps_since_last_cheese = 0  # Contador de pasos desde el último queso encontrado
     run = True
 
     while run and steps < max_steps:
@@ -95,21 +94,30 @@ for episode in range(max_episodes):
         if len(nivel.quesos) < num_quesos:
             reward = 100
             num_quesos = len(nivel.quesos)
-            #print(f"Epsilon = {epsilon}")
+            steps_since_last_cheese = 0  # Reiniciar contador de pasos desde el último queso encontrado
             
             if len(nivel.quesos) == 0:
                 run = False
                 print(f"Episodio {episode+1}: ¡Jerry encontró los {total_quesos} quesos en {steps} pasos!, Epsilon = {epsilon}")
         else:
             reward -= 50
+            steps_since_last_cheese += 1
+
+        # Penalización grande si no se encuentra queso en 100 movimientos
+        if steps_since_last_cheese >= 50:
+            reward -= 500
+            steps_since_last_cheese = 0  # Reiniciar contador después de la penalización
+
+        # Penalización grande si no se encuentran todos los quesos en 1000 movimientos
+        if steps >= 1000 and len(nivel.quesos) > 0:
+            reward -= 1000
+            run = False
+            print(f"Episodio {episode+1}: ¡Jerry no encontró todos los quesos en 1000 pasos!, Epsilon = {epsilon}")
 
         qlearning.update_q_table(jerry.state, action, reward, next_state, queso_actual)
         jerry.state = next_state
         steps += 1
 
-    
-
 # Guardar la Q-table entrenada
-
 np.save('Checkpoint/Q_table_jerry.npy', qlearning.q_table)
 pygame.quit()

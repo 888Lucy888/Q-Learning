@@ -84,7 +84,7 @@ class Mapa:
 
     def actualizar(self, visor):
         # Update the map and draw it on the screen
-        visor.fill((255, 192, 203))
+        visor.fill((173, 216, 230))
         self.grupo.update()
         self.grupo.draw(visor)
         self.quesos.update()

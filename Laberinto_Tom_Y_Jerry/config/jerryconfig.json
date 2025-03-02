@@ -1,7 +1,7 @@
 {
     "fps"          : 300,
-    "max_steps"    : 1000,
-    "max_episodes" : 30,
+    "max_steps"    : 5000,
+    "max_episodes" : 5,
     "width"        : 20,
     "height"       : 15,
     "size"         : 10,
