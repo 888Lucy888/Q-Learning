@@ -110,13 +110,15 @@ for episode in range(max_episodes):
 
         reward_jerry = jerry.move(action_jerry, nivel, BLOCK_SIZE, width, height)  # Move Jerry
         reward_tom = tom.move(action_tom, nivel, BLOCK_SIZE, width, height)  # Move Tom
+        #reward_tom = 0
 
         # Calculate distance after movement
         distance_after = calculate_distance(jerry.rect.topleft, tom.rect.topleft)
 
-        # Reward if Tom gets closer to Jerry
+        # Reward Tom and penalty Jerry if Tom gets closer to Jerry
         if distance_after < distance_before:
             reward_tom += 50
+            reward_jerry -=0
 
         next_state_jerry = jerry.get_state(BLOCK_SIZE, width)
         next_state_tom = tom.get_state(BLOCK_SIZE, width)
