@@ -1,8 +1,8 @@
 import pygame
 from learning.QlearningTom import QlearningTom
-
+import numpy as np
 class TomClass(pygame.sprite.Sprite):
-    def __init__(self, TOM_START, BLOCK_SIZE, width, height, enable_render):
+    def __init__(self, TOM_START, BLOCK_SIZE, width, height, enable_render, jerry):
         # Initialize the Tom sprite
         pygame.sprite.Sprite.__init__(self)
         posX = TOM_START[0] * BLOCK_SIZE
@@ -11,12 +11,21 @@ class TomClass(pygame.sprite.Sprite):
         self.image.set_colorkey((255, 255, 255))
         self.rect = self.image.get_rect()
         self.rect.topleft = (posX, posY)
-        self.state = self.get_state(BLOCK_SIZE, width)
+        self.state = self.get_state(BLOCK_SIZE, width,height, jerry)
         self.qlearning = QlearningTom(width, height)
 
-    def get_state(self, BLOCK_SIZE, width):
-        # Convert the sprite's position to an index for the Q-table
-        return (self.rect.y // BLOCK_SIZE) * width + (self.rect.x // BLOCK_SIZE)
+    def get_state(self, BLOCK_SIZE, width, height, jerry):
+        tom_x, tom_y = self.rect.topleft
+        jerry_x, jerry_y = jerry.rect.topleft  # Get Jerry's position
+      
+        # Normalize positions by dividing by grid size
+        return np.array([
+            tom_x / (width * BLOCK_SIZE),
+            tom_y / (height * BLOCK_SIZE),
+            jerry_x / (width * BLOCK_SIZE),
+            jerry_y / (height * BLOCK_SIZE)
+        ], dtype=np.float32)
+
 
     def move(self, action, nivel, BLOCK_SIZE, width, height):
         # Move Tom according to the action provided

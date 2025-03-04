@@ -1,10 +1,10 @@
 {
-    "fps"          : 20,
+    "fps"          : 10,
     "max_steps"    : 5000,
-    "max_episodes" : 500,
+    "max_episodes" : 100,
     "width"        : 20,
     "height"       : 15,
     "size"         : 10,
     "load_weights" : true,
-    "enable_render": false
+    "enable_render": true
 }
