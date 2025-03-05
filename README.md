@@ -121,6 +121,7 @@ The training process involves running multiple episodes where the agents interac
 
 The configuration files for the Q-learning agents are stored in the `config` directory. These files contain the parameters for the Q-learning algorithm and can be modified to change the behavior of the agents.
 
+- **config.json**: Configuration file of the training execution parameters.
 - **jerryqlearning.json**: Configuration file for Jerry's Q-learning agent.
 - **tomqlearning.json**: Configuration file for Tom's Q-learning agent.
 
