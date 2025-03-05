@@ -42,10 +42,13 @@ Jerry's agent is trained to navigate the maze and collect all the cheeses while 
 
 #### Rewards
 
-- **+100**: For collecting a cheese.
+- **+10000**: For collecting a cheese.
+- **-10000**: For exceeding `max_steps` without collecting all cheeses.
+- **-5000**: For getting captured by Tom.
+- **-50**: For moving closer to Tom.
 - **-50**: For hitting a wall.
-- **-1000**: For getting caught by Tom.
-- **-50**: For each step taken without collecting a cheese.
+- **-10**: For not collecting a cheese in the current step.
+- **-1 × current step**: Time penalty until a cheese is collected.
 
 #### Actions
 
@@ -70,6 +73,8 @@ Tom's agent is trained to navigate the maze and catch Jerry. The Q-learning algo
 - **-50**: For hitting a wall.
 - **+50**: For getting closer to Jerry.
 
+
+
 #### Actions
 
 - **0**: Move left in the grid.
@@ -81,15 +86,15 @@ Tom's agent is trained to navigate the maze and catch Jerry. The Q-learning algo
 
 The training process involves running multiple episodes where the agents interact with the environment and update their Q-tables based on the rewards received.
 
-### Jerry's Training
+### **Jerry's Training Process**
 
-1. **Initialization**: Jerry starts at a predefined position, and the Q-table is initialized with zeros.
-2. **Action Selection**: Jerry selects an action based on the epsilon-greedy policy.
-3. **State Transition**: Jerry moves to the new state based on the selected action.
-4. **Reward Calculation**: Jerry receives a reward based on the new state.
-5. **Q-table Update**: The Q-table is updated using the Bellman equation.
-6. **Epsilon Decay**: The exploration rate is decayed over episodes to reduce exploration over time.
-
+   1. **Initialization**: Tomry starts at a predefined position, and the Q-table is initialized with zeros.
+   2. **Action Selection**: Terry selects an action based on the epsilon-greedy policy.
+   3. **State Transition**: Terry moves to the new state based on the selected action.
+   4. **Reward Calculation**: Jerry receives a reward based on the new state.
+   5. **Q-table Update**: The Q-table is updated using the Bellman equation.
+   6. **Epsilon Decay**: The exploration rate is decayed over episodes to reduce exploration over time.
+     
 ### Tom's Training
 
 1. **Initialization**: Tom starts at a predefined position, and the Q-table is initialized with zeros.
@@ -107,9 +112,9 @@ The training process involves running multiple episodes where the agents interac
    pip install pygame numpy matplotlib
    ```
 
-2. **Run the Game**: Execute the [juegoJerryRun.py](http://_vscodecontentref_/2) script to start the game and observe the agents' behavior.
+2. **Run the Game**: Execute the [juegoRun.py](http://_vscodecontentref_/2) script to start the game and observe the agents' behavior.
    ```bash
-   python juegoJerryRun.py
+   python juegoRun.py
    ```
 
 ## Configuration Files
@@ -121,7 +126,7 @@ The configuration files for the Q-learning agents are stored in the `config` dir
 
 ## Conclusion
 
-This project demonstrates the application of Q-learning in a game environment where two agents, Tom and Jerry, interact with each other. The agents learn to navigate the maze and achieve their respective goals through reinforcement learning.
+This project demonstrates the application of Q-learning and Deep Q-Learning in a game environment where two agents, Tom and Jerry, interact with each other. The agents learn to navigate the maze and achieve their respective goals through reinforcement learning.
 
 At the end of the training, a bar graph is displayed showing the number of wins for Jerry, the number of wins for Tom, and the number of episodes where the action limit was reached without a winner. This helps visualize the performance of the agents over the training episodes.
 
