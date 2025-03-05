@@ -1,5 +1,5 @@
 {
-    "fps"          : 10,
+    "fps"          : 30,
     "max_steps"    : 5000,
     "max_episodes" : 100,
     "width"        : 20,
