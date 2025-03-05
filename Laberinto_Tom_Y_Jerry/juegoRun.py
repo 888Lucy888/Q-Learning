@@ -15,7 +15,7 @@ import torch.nn as nn
 import torch.optim as optim
 
 # Load configuration from JSON
-file_name = 'config/jerryconfig.json'
+file_name = 'config/config.json'
 with open(file_name, 'r') as file:
     data = json.load(file)
 
@@ -169,7 +169,7 @@ for episode in range(max_episodes):
     if steps >= max_steps and len(nivel.quesos) > 0:
         reward_jerry -= 10000  # Worst punishment for Jerry
         action_limit_reached += 1
-        print(f"Episodio {episode+1}: ¡Jerry no recogió todos los quesos en {steps} pasos!, Epsilon = {epsilon_jerry}")
+        print(f"Episodio {episode+1}: ¡Jerry no recogió todos los quesos en {steps} pasos!")
 
 # Save the trained Q-table
 np.save('Checkpoint/Q_table_jerry_Run.npy', qlearning_jerry.q_table)
