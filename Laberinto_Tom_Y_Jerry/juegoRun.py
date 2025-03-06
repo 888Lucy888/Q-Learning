@@ -157,7 +157,7 @@ for episode in range(max_episodes):
             print(f"Episodio {episode+1}: ¡Tom atrapó a Jerry en {steps} pasos!, Epsilon = {epsilon_jerry}")
 
         qlearning_jerry.update_q_table(jerry.state, action_jerry, reward_jerry, next_state_jerry, queso_actual)
-        qlearning_tom.update_q_table(tom.state, action_tom, reward_tom, next_state_tom)
+        qlearning_tom.update_q_table(tom.state, action_tom, reward_tom, next_state_tom,run == False)
         jerry.state = next_state_jerry
         tom.state = next_state_tom
         steps += 1
