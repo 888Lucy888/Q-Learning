@@ -14,10 +14,16 @@
 ## Tools and Libraries Used
 
 - **Python**: The programming language used for the project.
+  - Version: 3.11
 - **Pygame**: A library used for creating the game environment and rendering the graphics.
+  - Version: 2.1.0
 - **NumPy**: A library used for numerical computations and handling the Q-tables.
+  - Version: 1.23.4
 - **JSON**: Used for configuration files to store parameters for the Q-learning agents.
 - **Matplotlib**: A library used for plotting the results of the Q-learning training.
+  - Version: 3.6.1
+- **PyTorch**: A library used for implementing the Deep Q-Learning model for Tom.
+  - Version: 1.12.1
 
 ## Game Description
 
@@ -73,8 +79,6 @@ Tom's agent is trained to navigate the maze and catch Jerry. The Q-learning algo
 - **-50**: For hitting a wall.
 - **+50**: For getting closer to Jerry.
 
-
-
 #### Actions
 
 - **0**: Move left in the grid.
@@ -86,15 +90,15 @@ Tom's agent is trained to navigate the maze and catch Jerry. The Q-learning algo
 
 The training process involves running multiple episodes where the agents interact with the environment and update their Q-tables based on the rewards received.
 
-### **Jerry's Training Process**
+### Jerry's Training Process
 
-   1. **Initialization**: Tomry starts at a predefined position, and the Q-table is initialized with zeros.
-   2. **Action Selection**: Terry selects an action based on the epsilon-greedy policy.
-   3. **State Transition**: Terry moves to the new state based on the selected action.
-   4. **Reward Calculation**: Jerry receives a reward based on the new state.
-   5. **Q-table Update**: The Q-table is updated using the Bellman equation.
-   6. **Epsilon Decay**: The exploration rate is decayed over episodes to reduce exploration over time.
-     
+1. **Initialization**: Jerry starts at a predefined position, and the Q-table is initialized with zeros.
+2. **Action Selection**: Jerry selects an action based on the epsilon-greedy policy.
+3. **State Transition**: Jerry moves to the new state based on the selected action.
+4. **Reward Calculation**: Jerry receives a reward based on the new state.
+5. **Q-table Update**: The Q-table is updated using the Bellman equation.
+6. **Epsilon Decay**: The exploration rate is decayed over episodes to reduce exploration over time.
+
 ### Tom's Training
 
 1. **Initialization**: Tom starts at a predefined position, and the Q-table is initialized with zeros.
@@ -106,10 +110,10 @@ The training process involves running multiple episodes where the agents interac
 
 ## How to Run the Game
 
-1. **Install Dependencies**: Ensure you have Python, Pygame, NumPy, and Matplotlib installed. You can install the required libraries using the following commands:
+1. **Install Dependencies**: Ensure you have Python, Pygame, NumPy, Matplotlib, and PyTorch installed. You can install the required libraries using the following commands:
 
    ```bash
-   pip install pygame numpy matplotlib
+   pip install pygame numpy matplotlib torch
    ```
 
 2. **Run the Game**: Execute the [juegoRun.py](http://_vscodecontentref_/2) script to start the game and observe the agents' behavior.
